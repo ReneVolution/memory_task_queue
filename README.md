@@ -20,6 +20,6 @@ def my_fallback(item):
 
 mtq = MemoryTaskQueue(my_callback, on_max_retries=my_fallback, delay=0.3, max_retries=3)
 
-mtq.put({'message': 'hello world'{)
+mtq.put({'message': 'hello world'})
 
 ```
