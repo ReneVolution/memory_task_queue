@@ -116,22 +116,3 @@ class MemoryTaskQueue(threading.Thread):
                     pass
 
             self.__queue.task_done()
-
-
-if __name__ == '__main__':
-    def my_callback(item):
-        if not item['msg'] == 'No 2':
-            raise Exception
-        else:
-            logger.info('Yaaaay')
-
-    def fallback(item):
-        logger.info('Fallback for msg %s' % item['msg'])
-
-    queue = MemoryTaskQueue(my_callback, on_max_retries=fallback, delay=0.3, max_retries=1)
-
-    queue.put({'msg': 'No 1'})
-    # time.sleep(0.3)
-    queue.put({'msg': 'No 2'})
-    time.sleep(0.3)
-    queue.put({'msg': 'No 3'})
