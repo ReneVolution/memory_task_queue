@@ -1,1 +1,3 @@
-from memory_task_queue import MemoryTaskQueue
+from __future__ import absolute_import
+
+from memory_task_queue.memory_task_queue import MemoryTaskQueue

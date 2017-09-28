@@ -1,9 +1,12 @@
 import logging
-import Queue
 import sys
 import time
 import threading
 
+try:
+    from Queue import Queue
+except ImportError:  # Python 3
+    from queue import Queue
 
 logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
 logger = logging.getLogger('MemoryTaskQueue')
@@ -47,7 +50,7 @@ class MemoryTaskQueue(threading.Thread):
                          with the fallback
         """
         super(MemoryTaskQueue, self).__init__()
-        self.__queue = Queue.Queue()
+        self.__queue = Queue()
 
         self.__cb = cb
         self.__fb = on_max_retries
