@@ -56,3 +56,20 @@ class TestMemoryTaskQueue(object):
         mtq.wait()
 
         fb.assert_called_once_with('hello')
+
+    def test_delay(self):
+        import time
+        # delay in seconds
+        delay = 1
+        retries = 3
+        cb = Mock()
+        cb.side_effect = Exception()
+
+        mtq = MemoryTaskQueue(cb, max_retries=retries, delay=delay)
+
+        mtq.put('hello')
+        start_time = time.time()
+        mtq.wait()
+        execution_time = time.time() - start_time
+
+        assert int(execution_time) == (retries+1) * delay
